@@ -22,3 +22,8 @@ body::before { content: ''; display: block; height: 5px; background: repeating-l
 .guide-content strong { color: #294a38; }
 .guide-footer { padding: 18px 2px; text-align: center; }
 @media (max-width: 520px) { .guide-page { width: min(100% - 22px, 720px); margin-top: 18px; } .guide-header { padding: 24px 20px; } .guide-content { padding: 4px 20px; } .guide-content h2 { font-size: 17px; } .guide-content p, .guide-content ol { font-size: 13px; } }
+
+.guide-figure { max-width: 390px; margin: 22px auto; }
+.guide-figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); background: #fff; }
+.guide-figure figcaption { margin-top: 8px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+@media (max-width: 520px) { .guide-figure { max-width: 100%; } .guide-figure figcaption { font-size: 11px; } }
