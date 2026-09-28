@@ -27,3 +27,9 @@ body::before { content: ''; display: block; height: 5px; background: repeating-l
 .guide-figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); background: #fff; }
 .guide-figure figcaption { margin-top: 8px; color: var(--muted); font-size: 12px; line-height: 1.6; }
 @media (max-width: 520px) { .guide-figure { max-width: 100%; } .guide-figure figcaption { font-size: 11px; } }
+
+.code-alert { display: flex; align-items: flex-start; gap: 13px; margin: 20px 0; padding: 16px 18px; border: 1px solid #e7cf9f; border-left: 5px solid #c58b2a; background: #fff8e9; color: #3d3424; }
+.code-alert-icon { display: grid; flex: 0 0 27px; width: 27px; height: 27px; place-items: center; border-radius: 50%; background: #c58b2a; color: white; font-size: 18px; font-weight: 700; line-height: 1; }
+.code-alert h3 { margin: 0 0 4px; color: #684a16; font-size: 14px; font-weight: 700; line-height: 1.5; }
+.code-alert p { margin: 0; font-size: 13px; line-height: 1.65; }
+@media (max-width: 520px) { .code-alert { gap: 10px; padding: 13px; } .code-alert h3 { font-size: 13px; } .code-alert p { font-size: 12px; } }
