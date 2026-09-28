@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
+:root { color-scheme: light; --ink: #1d2b25; --muted: #68766c; --line: #e3e9e2; --green: #365d49; --paper: #fff; --gold: #d4aa65; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #f3f4ef; color: var(--ink); font-family: 'DM Sans', 'Noto Sans JP', sans-serif; line-height: 1.75; }
+body::before { content: ''; display: block; height: 5px; background: repeating-linear-gradient(90deg, var(--green) 0 24px, #f3f4ef 24px 48px); }
+.guide-page { width: min(100% - 32px, 720px); margin: 34px auto 48px; }
+.guide-header { padding: 30px 32px; background: var(--green); color: white; }
+.guide-eyebrow { margin: 0 0 9px; color: #dbe6dc; font-size: 10px; font-weight: 700; letter-spacing: .2em; }
+.guide-header h1 { margin: 0; font-size: clamp(24px, 5vw, 34px); line-height: 1.35; font-weight: 600; }
+.guide-header > p:last-child { margin: 10px 0 0; color: #e4ece5; font-size: 14px; }
+.guide-nav { display: flex; justify-content: space-between; gap: 16px; padding: 16px 2px; }
+.guide-nav a, .guide-footer a { color: var(--green); font-size: 13px; font-weight: 600; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.guide-nav a:hover, .guide-footer a:hover { color: #203f2f; }
+.guide-nav a:focus-visible, .guide-footer a:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+.guide-content { padding: 12px 32px 8px; border: 1px solid var(--line); background: var(--paper); box-shadow: 0 12px 35px rgba(32,48,38,.045); }
+.guide-content section { padding: 20px 0; border-bottom: 1px solid var(--line); }
+.guide-content section:last-child { border-bottom: 0; }
+.guide-content h2 { margin: 0 0 10px; color: var(--green); font-size: 19px; font-weight: 600; }
+.guide-content p, .guide-content ol { margin: 8px 0 0; font-size: 14px; }
+.guide-content ol { padding-left: 1.5em; }
+.guide-content li { margin: 6px 0; padding-left: 3px; }
+.guide-content strong { color: #294a38; }
+.guide-footer { padding: 18px 2px; text-align: center; }
+@media (max-width: 520px) { .guide-page { width: min(100% - 22px, 720px); margin-top: 18px; } .guide-header { padding: 24px 20px; } .guide-content { padding: 4px 20px; } .guide-content h2 { font-size: 17px; } .guide-content p, .guide-content ol { font-size: 13px; } }
