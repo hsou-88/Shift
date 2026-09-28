@@ -120,3 +120,11 @@ body { margin: 0; background: #f3f4ef; color: var(--ink); font-family: 'DM Sans'
 .admin-reservation-details > span:last-child { color: var(--green); }
 .delete-reservation-btn { flex: 0 0 auto; padding: 6px 10px; border: 1px solid #a85246; background: white; color: #a85246; font-size: 10px; }
 .delete-reservation-btn:hover { background: #a85246; color: white; }
+
+.user-guides { margin: 30px 0 14px; padding: 15px 17px; border: 1px solid #dce5dc; background: #f8faf7; }
+.user-guides > p { margin: 0 0 10px; color: #56645a; font-size: 11px; font-weight: 600; }
+.user-guide-links { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.user-guide-links a { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 40px; padding: 9px 11px; border: 1px solid #dce5dc; background: white; color: var(--green); font-size: 11px; font-weight: 600; text-decoration: none; }
+.user-guide-links a:hover { border-color: var(--green); background: #edf3ed; }
+.user-guide-links a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+@media (max-width: 380px) { .user-guide-links { grid-template-columns: 1fr; } }

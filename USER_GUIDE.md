@@ -19,7 +19,3 @@ Each room can hold one active booking. Available dates and spaces depend on the 
 2. Select **Cancel my booking** and confirm.
 
 New bookings use a four-digit code. If you already have an earlier 64-character code, it remains accepted. There are up to 10 cancellation attempts per room in each 24-hour period. After that, wait 24 hours before trying again. Bookings created before cancellation codes were introduced cannot be cancelled with a code; contact the administrator.
-
-## Booking records
-
-Bookings remain in the database until the resident cancels or an administrator deletes them. The administrator can remove one booking or delete all bookings.
