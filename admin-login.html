@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17251f">
+  <title>Administrator Sign In · Cleaning Shift Booking</title>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/appointment-form.css">
+  <link rel="stylesheet" href="/css/reservation.css">
+</head>
+<body>
+  <main class="appointment-form">
+    <div class="container px-3 px-md-0 py-5">
+      <header class="form-header text-center p-4 p-md-5">
+        <p class="eyebrow">CLEANING DUTY</p>
+        <h1>Administrator</h1>
+        <p>Sign in to manage booking dates, room groups, and capacity.</p>
+      </header>
+      <section class="reservation-card admin-login-card p-4 p-md-5">
+        <div class="section-kicker">RESTRICTED ACCESS <span>ADMIN</span></div>
+        <h2>Sign in</h2>
+        <p class="intro">Administrator access is required to continue.</p>
+        <form id="admin-login-form">
+          <div class="form-section"><label class="form-label" for="admin-key">Administrator key</label><input class="form-control" id="admin-key" type="password" autocomplete="current-password" required></div>
+          <div id="login-message" class="booking-message" role="alert" aria-live="polite"></div>
+          <button class="submit-btn" type="submit"><span>Sign in</span></button>
+        </form>
+        <p class="admin-return"><a href="/">← Return to shift booking</a></p>
+      </section>
+    </div>
+  </main>
+  <script src="/js/admin-login.js"></script>
+</body>
+</html>

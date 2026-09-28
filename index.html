@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17251f">
+  <title>Cleaning Shift Booking</title>
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/appointment-form.css">
+  <link rel="stylesheet" href="css/reservation.css">
+</head>
+<body>
+  <main class="appointment-form">
+    <div class="container px-3 px-md-0 py-5">
+      <header class="form-header text-center p-4 p-md-5">
+        <p class="eyebrow">CLEANING DUTY</p>
+        <h1>Cleaning Shift Booking</h1>
+        <p>Choose an available date to book your cleaning shift.</p>
+      </header>
+
+      <section class="reservation-card p-4 p-md-5" aria-labelledby="booking-title">
+        <div class="section-kicker">SHIFT BOOKING <span>01 / 02</span></div>
+        <h2 id="booking-title">Book a shift</h2>
+        <p class="intro">Choose an available day for your room.</p>
+        <form id="booking-form">
+          <div class="form-section">
+            <label class="form-label" for="room-number">Room number</label>
+            <input class="form-control" id="room-number" name="room" inputmode="numeric" pattern="[0-9]+" placeholder="e.g. 101" required>
+            <small class="field-hint">Your resident group is determined by the room list set by the administrator.</small>
+            <p id="resident-group-status" class="resident-group-status" aria-live="polite"></p>
+          </div>
+          <div class="form-section">
+            <label class="form-label" for="resident-name">Name</label>
+            <input class="form-control" id="resident-name" name="name" autocomplete="name" placeholder="e.g. Alex Smith" required>
+          </div>
+          <div class="form-section">
+            <div class="calendar-heading"><div><label class="form-label mb-1" for="calendar-title">Available date</label><p id="calendar-title" class="calendar-caption"></p></div><div class="calendar-nav"><button type="button" id="prev-month" aria-label="Previous month">‹</button><button type="button" id="next-month" aria-label="Next month">›</button></div></div>
+            <div class="calendar" role="group" aria-label="Available booking dates"><div class="calendar-weekdays" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div id="calendar-days" class="calendar-days"></div></div>
+            <p id="availability-note" class="availability-note" aria-live="polite">Enter your room number to see available dates.</p>
+            <input type="hidden" id="selected-date" name="date" required>
+          </div>
+          <div id="booking-message" class="booking-message" role="status" aria-live="polite"></div>
+          <button class="submit-btn" type="submit"><span>Book this date</span></button>
+        </form>
+      </section>
+
+      <footer class="page-footer">CLEANING DUTY · A cleaner home, shared by everyone</footer>
+    </div>
+  </main>
+  <script src="js/appointment-form.js"></script>
+</body>
+</html>

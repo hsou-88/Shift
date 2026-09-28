@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root { --ink: #1d2b25; --muted: #818a82; --line: #e7eae5; --green: #365d49; --gold: #d4aa65; --paper: #fff; }
+body { margin: 0; background: #f3f4ef; color: var(--ink); font-family: 'DM Sans', sans-serif; }
+.appointment-form { min-height: 100vh; background: #f3f4ef; padding-bottom: 24px; }
+.appointment-form::before { height: 5px; background: repeating-linear-gradient(90deg, var(--green) 0 24px, #f3f4ef 24px 48px); }
+.appointment-form .container { max-width: 580px; }
+.appointment-form .form-header { background: var(--green); color: white; padding-top: 34px!important; padding-bottom: 38px!important; }
+.appointment-form .form-header::after { border-top-color: var(--green); bottom: -14px; border-left-width: 15px; border-right-width: 15px; border-top-width: 15px; }
+.appointment-form .form-header .eyebrow { margin: 0 0 16px; font-size: 10px; font-weight: 700; letter-spacing: .28em; opacity: .65; }
+.appointment-form .form-header h1 { font-family: 'DM Sans', sans-serif; font-size: 27px; font-weight: 600; letter-spacing: .13em; text-transform: none; }
+.appointment-form .form-header h1::after { display: none; }
+.appointment-form .form-header p:last-child { margin-top: 14px; font-size: 12px; letter-spacing: .02em; }
+.reservation-card { margin-top: 24px; background: var(--paper); border: 1px solid #e9ebe6; box-shadow: 0 12px 35px rgba(32,48,38,.045); }
+.section-kicker { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; color: var(--green); font-size: 9px; font-weight: 700; letter-spacing: .18em; }
+.section-kicker span { color: #b0b7b0; }
+.reservation-card h2 { margin: 0; font-family: 'Noto Sans JP', sans-serif; font-size: 21px; font-weight: 600; letter-spacing: .03em; }
+.intro { margin: 8px 0 26px; color: var(--muted); font-size: 12px; }
+.appointment-form .form-section { margin-bottom: 25px; }
+.appointment-form .form-label { margin-bottom: 9px; font-family: 'DM Sans', sans-serif; color: #526057; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: none; }
+.appointment-form .form-control { min-height: 44px; padding: 9px 4px; border: 0; border-bottom: 1px solid #dfe4de; font-size: 13px; }
+.appointment-form .form-control:focus { border-bottom: 1px solid var(--green); background: #f8faf7; }
+.appointment-form .form-control::placeholder { color: #adb5ae; opacity: 1; }
+.field-hint { display: block; margin-top: 8px; color: #929b93; font-size: 10px; }
+.calendar-heading { display: flex; align-items: end; justify-content: space-between; margin-bottom: 12px; }
+.calendar-caption { margin: 0; color: #929b93; font-size: 10px; }
+.calendar-nav { display: flex; gap: 6px; }
+.calendar-nav button { width: 31px; height: 31px; border: 1px solid var(--line); background: white; color: var(--green); font-size: 21px; line-height: 1; }
+.calendar-nav button:hover { border-color: var(--green); background: #f5f8f4; }
+.calendar { border: 1px solid var(--line); }
+.calendar-weekdays, .calendar-days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.calendar-weekdays { background: #f7f8f5; border-bottom: 1px solid var(--line); }
+.calendar-weekdays span { padding: 10px 0; color: #939b93; text-align: center; font-size: 10px; font-weight: 600; }
+.calendar-weekdays span:first-child { color: #c27968; }
+.calendar-weekdays span:last-child { color: #748c9b; }
+.calendar-day, .calendar-blank { min-height: 49px; border: 0; border-right: 1px solid #f0f1ed; border-bottom: 1px solid #f0f1ed; }
+.calendar-day { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 3px 0; background: white; color: var(--ink); }
+.calendar-day:nth-child(7n) { border-right: 0; }
+.day-number { font-size: 12px; line-height: 16px; }
+.day-count { min-height: 11px; color: var(--green); font-size: 8px; line-height: 10px; }
+.calendar-day:not(:disabled):hover { background: #edf3ed; box-shadow: inset 0 0 0 1px #8da895; }
+.calendar-day:disabled { background: #fbfbfa; color: #c5cac4; cursor: not-allowed; }
+.calendar-day:disabled .day-count { color: #b9bdb8; }
+.calendar-day.full .day-count { color: #a3aaa3; }
+.calendar-day.selected { background: var(--green); color: white; }
+.calendar-day.selected .day-count { color: #d9e5da; }
+.calendar-day:focus-visible, .calendar-nav button:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+.availability-note { min-height: 16px; margin: 9px 0 0; color: #879087; font-size: 10px; line-height: 1.7; }
+.appointment-form .submit-btn { margin-top: 8px; padding: 14px; border: 1px solid var(--green); background: var(--green); font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: .12em; text-transform: none; }
+.appointment-form .submit-btn::before { background: #edf3ed; }
+.appointment-form .submit-btn:hover { border-color: var(--green); }
+.booking-message { display: none; margin-top: 14px; padding: 11px 13px; font-size: 11px; line-height: 1.7; }
+.booking-message:not(:empty) { display: block; }
+.booking-message.success { background: #eef5ee; color: #365d49; }
+.booking-message.error { background: #fbefed; color: #994f43; }
+.admin-panel { margin-top: 17px; border: 1px solid #e4e7e1; background: #fafbf9; }
+.admin-panel summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 15px 17px; color: #59665d; cursor: pointer; list-style: none; font-size: 11px; font-weight: 600; }
+.admin-panel summary::-webkit-details-marker { display: none; }
+.admin-mark { display: inline-grid; width: 20px; height: 20px; margin-right: 5px; place-items: center; border: 1px solid #dce2db; border-radius: 50%; color: var(--green); font-size: 15px; }
+.admin-panel[open] .admin-mark { transform: rotate(45deg); }
+.admin-caption { color: #a0a8a0; font-size: 9px; font-weight: 400; }
+.admin-content { padding: 0 17px 18px; border-top: 1px solid #eaede8; }
+.admin-content > p:first-child { margin: 14px 0; color: #818a82; font-size: 10px; }
+.settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px 18px; }
+.settings-grid .form-label { font-size: 9px; }
+.settings-grid .form-control { min-height: 37px; font-size: 11px; }
+.settings-grid button { grid-column: 1 / -1; padding: 10px; border: 1px solid var(--green); background: transparent; color: var(--green); font-size: 10px; font-weight: 600; }
+.settings-grid button:hover { background: var(--green); color: white; }
+.admin-content .admin-footnote { margin: 12px 0 0; color: #a1a8a1; font-size: 9px; line-height: 1.6; }
+.page-footer { padding: 19px 0 0; color: #9ca49c; text-align: center; font-size: 8px; letter-spacing: .12em; }
+.page-footer a, .admin-return a { color: var(--green); text-decoration: none; }
+.page-footer a:hover, .admin-return a:hover { text-decoration: underline; }
+.admin-login-card { max-width: 100%; }
+.admin-return { margin: 20px 0 0; text-align: center; font-size: 10px; }
+.admin-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.admin-title-row .intro { margin-bottom: 25px; }
+.admin-dates { margin-bottom: 7px; }
+.logout-btn { padding: 7px 12px; border: 1px solid var(--line); background: white; color: #68756b; font-size: 10px; }
+.logout-btn:hover { border-color: var(--green); color: var(--green); }
+.resident-group-status { margin: 9px 0 0; color: var(--green); font-size: 11px; font-weight: 600; }
+.new-resident-list { margin: 20px 0 22px; }
+.new-resident-list textarea.form-control { min-height: 78px; border: 1px solid var(--line); padding: 10px; resize: vertical; }
+.group-settings { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+.group-card { min-width: 0; margin: 0; padding: 16px; border: 1px solid var(--line); }
+.group-card legend { float: none; width: auto; margin: 0 0 12px; padding: 0 5px; color: var(--green); font-size: 12px; font-weight: 700; }
+.group-capacity { min-height: 38px!important; }
+.weekday-label { margin-top: 17px; }
+.weekday-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.weekday-options label { cursor: pointer; }
+.weekday-options input { position: absolute; opacity: 0; }
+.weekday-options span { display: grid; min-height: 31px; place-items: center; border: 1px solid var(--line); color: #748077; font-size: 9px; }
+.weekday-options input:checked + span { border-color: var(--green); background: var(--green); color: white; }
+.weekday-options input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
+.admin-save { width: 100%; margin-top: 15px; padding: 11px; border: 1px solid var(--green); background: var(--green); color: white; font-size: 11px; font-weight: 600; }
+.admin-save:hover { background: #294a38; }
+@media (max-width: 480px) { .group-settings { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .appointment-form .container { padding-left: 12px!important; padding-right: 12px!important; } .reservation-card { padding: 23px 18px!important; } .calendar-day, .calendar-blank { min-height: 43px; } .admin-caption { font-size: 8px; } }
