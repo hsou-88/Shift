@@ -5,9 +5,9 @@
   "description": "Serverless cleaning shift booking on Cloudflare Pages and D1",
   "scripts": {
     "dev": "wrangler pages dev .",
-    "db:create": "wrangler d1 create cleaning-shift-booking",
-    "db:apply:local": "wrangler d1 migrations apply cleaning-shift-booking --local",
-    "db:apply:remote": "wrangler d1 migrations apply cleaning-shift-booking --remote",
+    "db:create": "wrangler d1 create shift",
+    "db:apply:local": "wrangler d1 migrations apply shift --local",
+    "db:apply:remote": "wrangler d1 migrations apply shift --remote",
     "deploy": "wrangler pages deploy ."
   },
   "engines": { "node": "^22 || ^24" },
