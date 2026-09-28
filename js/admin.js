@@ -17,12 +17,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     return Array.from(document.querySelectorAll(`.weekday-options[data-group="${group}"] input:checked`), (input) => Number(input.value));
   }
   try {
-    const { settings } = await api("/api/state");
+    const { settings, newRooms } = await api("/api/state");
     document.querySelector("#start-date").value = settings.start;
     document.querySelector("#end-date").value = settings.end;
     document.querySelector("#new-capacity").value = settings.groups.new.capacity;
     document.querySelector("#current-capacity").value = settings.groups.current.capacity;
-    document.querySelector("#new-rooms").value = settings.newRooms.join(", ");
+    document.querySelector("#new-rooms").value = newRooms.join(", ");
     setDays("new", settings.groups.new.days); setDays("current", settings.groups.current.days);
   } catch (error) { showMessage(error.message, "error"); }
 
