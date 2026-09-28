@@ -42,6 +42,22 @@
           <div id="booking-message" class="booking-message" role="status" aria-live="polite"></div>
           <button class="submit-btn" type="submit"><span>Book this date</span></button>
         </form>
+        <section class="booking-records" aria-labelledby="booking-records-title">
+          <h2 id="booking-records-title">Booked residents by date</h2>
+          <p class="intro">See who has booked each available shift.</p>
+          <div id="booking-list" class="booking-list" aria-live="polite"><p class="field-hint">Loading bookings…</p></div>
+        </section>
+      </section>
+
+      <section class="reservation-card p-4 p-md-5 cancellation-card" aria-labelledby="cancel-title">
+        <h2 id="cancel-title">Cancel a booking</h2>
+        <p class="intro">Enter the room number and cancellation code shown after booking.</p>
+        <form id="cancel-form">
+          <div class="form-section"><label class="form-label" for="cancel-room">Room number</label><input class="form-control" id="cancel-room" inputmode="numeric" pattern="[0-9]+" required></div>
+          <div class="form-section"><label class="form-label" for="cancel-code">Cancellation code</label><input class="form-control" id="cancel-code" type="password" autocomplete="off" required></div>
+          <div id="cancel-message" class="booking-message" role="status" aria-live="polite"></div>
+          <button class="submit-btn cancel-btn" type="submit">Cancel my booking</button>
+        </form>
       </section>
 
       <footer class="page-footer">CLEANING DUTY · A cleaner home, shared by everyone</footer>

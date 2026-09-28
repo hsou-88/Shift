@@ -95,3 +95,28 @@ body { margin: 0; background: #f3f4ef; color: var(--ink); font-family: 'DM Sans'
 .admin-save:hover { background: #294a38; }
 @media (max-width: 480px) { .group-settings { grid-template-columns: 1fr; } }
 @media (max-width: 480px) { .appointment-form .container { padding-left: 12px!important; padding-right: 12px!important; } .reservation-card { padding: 23px 18px!important; } .calendar-day, .calendar-blank { min-height: 43px; } .admin-caption { font-size: 8px; } }
+
+.booking-records { margin-top: 27px; padding-top: 22px; border-top: 1px solid var(--line); }
+.booking-records h2, .cancellation-card h2, .admin-danger-zone h2 { margin: 0; font-size: 18px; }
+.booking-records .intro, .cancellation-card .intro { margin-bottom: 16px; }
+.booking-date-group { padding: 12px 0; border-top: 1px solid #f0f1ed; }
+.booking-date-group h3 { margin: 0 0 8px; color: var(--green); font-size: 12px; font-weight: 700; }
+.booking-name-list { display: flex; flex-wrap: wrap; gap: 7px; margin: 0; padding: 0; list-style: none; }
+.booking-name-list li { padding: 5px 9px; border: 1px solid var(--line); background: #fafbf9; color: #56645a; font-size: 11px; }
+.cancellation-card { margin-top: 16px; }
+.cancel-btn { width: 100%; }
+.admin-danger-zone { margin-top: 26px; padding-top: 20px; border-top: 1px solid #f0d9d5; }
+.admin-danger-zone p { margin: 8px 0 12px; color: #818a82; font-size: 10px; }
+.delete-all-btn { padding: 9px 12px; border: 1px solid #a85246; background: #fff; color: #a85246; font-size: 10px; font-weight: 600; }
+.delete-all-btn:hover { background: #a85246; color: #fff; }
+
+.admin-reservations { margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--line); }
+.admin-reservations h2 { margin: 0; font-size: 18px; }
+.admin-reservations > p { margin: 8px 0 12px; color: #818a82; font-size: 10px; }
+.admin-reservation-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid #f0f1ed; }
+.admin-reservation-details { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; font-size: 11px; }
+.admin-reservation-date { color: #818a82; }
+.admin-reservation-details strong { color: var(--ink); }
+.admin-reservation-details > span:last-child { color: var(--green); }
+.delete-reservation-btn { flex: 0 0 auto; padding: 6px 10px; border: 1px solid #a85246; background: white; color: #a85246; font-size: 10px; }
+.delete-reservation-btn:hover { background: #a85246; color: white; }

@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   const note = $("#availability-note");
   const message = $("#booking-message");
   const groupStatus = $("#resident-group-status");
+  const bookingList = $("#booking-list");
+  const cancelMessage = $("#cancel-message");
   const dateKey = (date) => [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
   const parseDate = (value) => { const [year, month, day] = value.split("-").map(Number); return new Date(year, month - 1, day); };
   const today = new Date(); today.setHours(0, 0, 0, 0);
@@ -21,6 +23,22 @@ document.addEventListener("DOMContentLoaded", async function () {
     return body;
   }
   function roomNumber() { const value = roomInput.value.trim(); return /^\d{1,12}$/.test(value) ? value : ""; }
+  function renderBookingList(bookings = []) {
+    bookingList.replaceChildren();
+    if (!bookings.length) { const empty = document.createElement("p"); empty.className = "field-hint"; empty.textContent = "No bookings yet."; bookingList.append(empty); return; }
+    let currentDate = ""; let list;
+    for (const booking of bookings) {
+      if (booking.date !== currentDate) {
+        currentDate = booking.date;
+        const group = document.createElement("section"); group.className = "booking-date-group";
+        const heading = document.createElement("h3"); heading.textContent = new Intl.DateTimeFormat("en", { dateStyle: "full" }).format(parseDate(booking.date));
+        list = document.createElement("ul"); list.className = "booking-name-list";
+        group.append(heading, list); bookingList.append(group);
+      }
+      const item = document.createElement("li"); item.textContent = `${booking.name} · Room ${booking.room}`; list.append(item);
+    }
+  }
+  function setCancelMessage(text, type = "") { cancelMessage.textContent = text; cancelMessage.className = `booking-message ${type}`; }
   function isEligible(date) {
     if (!roomNumber() || !settings) return false;
     const key = dateKey(date); const group = settings.groups[residentType];
@@ -30,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const room = roomNumber();
     const data = await api(`/state${room ? `?room=${encodeURIComponent(room)}` : ""}`);
     settings = data.settings; residentType = data.residentType || "current"; availability = data.counts[residentType] || {}; roomReserved = Boolean(data.roomReserved); connected = true;
-    renderCalendar();
+    renderCalendar(); renderBookingList(data.bookings || []);
   }
   function renderCalendar() {
     const year = visibleMonth.getFullYear(); const month = visibleMonth.getMonth();
@@ -67,10 +85,23 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (!room || !name || !date) { setMessage("Enter your room number and name, then choose a date.", "error"); return; }
     if (!isEligible(parseDate(date))) { setMessage("That date is no longer available. Choose another open date.", "error"); selectedInput.value = ""; await refreshState(); return; }
     try {
-      await api("/reservations", { method: "POST", body: JSON.stringify({ room, name, date }) });
-      setMessage(`Your shift is booked for ${date}. Room ${room} can only book once.`, "success");
+      const result = await api("/reservations", { method: "POST", body: JSON.stringify({ room, name, date }) });
+      setMessage(`Your shift is booked for ${date}. Save this cancellation code: ${result.cancellationCode}. You will need it with your room number to cancel.`, "success");
       selectedInput.value = ""; roomInput.value = ""; nameInput.value = ""; await refreshState();
     } catch (error) { setMessage(error.message, "error"); await refreshState(); }
+  });
+
+
+  $("#cancel-form").addEventListener("submit", async (event) => {
+    event.preventDefault(); setCancelMessage("");
+    const room = $("#cancel-room").value.trim(); const cancellationCode = $("#cancel-code").value.trim();
+    if (!/^\d{1,12}$/.test(room) || !/^[a-f0-9]{64}$/.test(cancellationCode)) { setCancelMessage("Enter the room number and the full cancellation code.", "error"); return; }
+    if (!window.confirm("Cancel this cleaning shift booking?")) return;
+    try {
+      await api("/reservations", { method: "DELETE", body: JSON.stringify({ room, cancellationCode }) });
+      setCancelMessage("Your booking has been cancelled.", "success");
+      $("#cancel-form").reset(); await refreshState();
+    } catch (error) { setCancelMessage(error.message, "error"); }
   });
 
   try { await refreshState(); } catch (error) { setMessage(`Booking service unavailable: ${error.message}. Please reload this page later.`, "error"); note.textContent = "Unable to load available dates."; }

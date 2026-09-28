@@ -54,6 +54,17 @@
           <button class="settings-save admin-save" type="submit">Save settings</button>
         </form>
         <div id="admin-message" class="booking-message" role="status" aria-live="polite"></div>
+        <section class="admin-reservations" aria-labelledby="admin-reservations-title">
+          <h2 id="admin-reservations-title">Current reservations</h2>
+          <p>Review bookings and remove an individual reservation.</p>
+          <div id="admin-reservation-list" class="admin-reservation-list" aria-live="polite"><p class="field-hint">Loading reservations…</p></div>
+        </section>
+        <section class="admin-danger-zone" aria-labelledby="reservation-cleanup-title">
+          <h2 id="reservation-cleanup-title">Reservation records</h2>
+          <p>Delete every booking from the database. This cannot be undone.</p>
+          <button id="delete-all-reservations" class="delete-all-btn" type="button">Delete all reservations</button>
+          <div id="cleanup-message" class="booking-message" role="status" aria-live="polite"></div>
+        </section>
       </section>
       <footer class="page-footer"><a href="/">Return to shift booking</a></footer>
     </div>

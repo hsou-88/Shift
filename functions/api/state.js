@@ -20,10 +20,11 @@ export async function onRequestGet({ request, env }) {
     const results = await env.DB.prepare("SELECT resident_type, booking_date, COUNT(*) AS count FROM reservations GROUP BY resident_type, booking_date").all();
     const counts = { new: {}, current: {} };
     for (const item of results.results) counts[item.resident_type][item.booking_date] = item.count;
+    const bookingsResult = await env.DB.prepare("SELECT booking_date, resident_name, room FROM reservations ORDER BY booking_date, resident_name").all();
     const url = new URL(request.url);
     const room = url.searchParams.get("room") || "";
     const existingReservation = room ? await env.DB.prepare("SELECT resident_type FROM reservations WHERE room = ?").bind(room).first() : null;
-    const roomIsNew = Boolean(room && row.new_rooms.includes(`|${room}|`));
+    const roomIsNew = Boolean(room && (row.new_rooms || "|").includes(`|${room}|`));
     const residentType = existingReservation?.resident_type || (roomIsNew ? "new" : "current");
     const roomReserved = Boolean(existingReservation);
     return Response.json({
@@ -34,7 +35,8 @@ export async function onRequestGet({ request, env }) {
           current: { days: splitDays(row.current_days), capacity: row.current_capacity }
         }
       },
-      newRooms: row.new_rooms.split("|").filter(Boolean), counts, residentType, roomReserved
+      newRooms: (row.new_rooms || "|").split("|").filter(Boolean), counts, residentType, roomReserved,
+      bookings: bookingsResult.results.map((booking) => ({ date: booking.booking_date, name: booking.resident_name, room: booking.room }))
     }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     return Response.json({ error: "Unable to load booking availability." }, { status: 500 });
