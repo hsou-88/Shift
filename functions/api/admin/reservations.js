@@ -14,6 +14,11 @@ export async function onRequestDelete({ request, env }) {
     const result = body.room === undefined
       ? await env.DB.prepare("DELETE FROM reservations").run()
       : await env.DB.prepare("DELETE FROM reservations WHERE room = ?").bind(body.room).run();
+    if (body.room === undefined) {
+      await env.DB.prepare("DELETE FROM cancellation_attempts").run();
+    } else {
+      await env.DB.prepare("DELETE FROM cancellation_attempts WHERE room = ?").bind(body.room).run();
+    }
     return Response.json({ ok: true, deleted: result.meta.changes || 0 }, { headers: { "Cache-Control": "no-store" } });
   } catch (_) {
     return Response.json({ error: "Unable to delete reservations. Please try again." }, { status: 500 });

@@ -54,13 +54,13 @@
         <p class="intro">Enter the room number and cancellation code shown after booking.</p>
         <form id="cancel-form">
           <div class="form-section"><label class="form-label" for="cancel-room">Room number</label><input class="form-control" id="cancel-room" inputmode="numeric" pattern="[0-9]+" required></div>
-          <div class="form-section"><label class="form-label" for="cancel-code">Cancellation code</label><input class="form-control" id="cancel-code" type="password" autocomplete="off" required></div>
+          <div class="form-section"><label class="form-label" for="cancel-code">Cancellation code</label><input class="form-control" id="cancel-code" type="text" inputmode="text" pattern="([0-9]{4}|[a-f0-9]{64})" minlength="4" maxlength="64" placeholder="e.g. 0427" autocomplete="off" aria-describedby="cancel-code-hint" required><small id="cancel-code-hint" class="field-hint">Enter the four-digit code shown after booking. You have up to 10 attempts per room every 24 hours.</small></div>
           <div id="cancel-message" class="booking-message" role="status" aria-live="polite"></div>
           <button class="submit-btn cancel-btn" type="submit">Cancel my booking</button>
         </form>
       </section>
 
-      <footer class="page-footer">CLEANING DUTY · A cleaner home, shared by everyone</footer>
+      <footer class="page-footer">CLEANING DUTY · A cleaner home, shared by everyone<br><a href="/USER_GUIDE.md">English user guide</a> · <a href="/USER_GUIDE.ja.md">Japanese user guide</a></footer>
     </div>
   </main>
   <script src="js/appointment-form.js"></script>

@@ -5,8 +5,13 @@ function validDate(value) {
 }
 
 function createCancellationCode() {
-  const bytes = crypto.getRandomValues(new Uint8Array(32));
-  return Array.from(bytes, (byte) => byte.toString(16).padStart(2, "0")).join("");
+  const bytes = new Uint8Array(2);
+  let value;
+  do {
+    crypto.getRandomValues(bytes);
+    value = (bytes[0] << 8) | bytes[1];
+  } while (value >= 60000);
+  return String(value % 10000).padStart(4, "0");
 }
 
 async function hashCancellationCode(code) {
@@ -58,13 +63,26 @@ export async function onRequestDelete({ request, env }) {
   try { body = await request.json(); } catch (_) { return Response.json({ error: "Enter your room number and cancellation code." }, { status: 400 }); }
   const room = body?.room;
   const code = body?.cancellationCode;
-  if (typeof room !== "string" || !/^\d{1,12}$/.test(room) || typeof code !== "string" || !/^[a-f0-9]{64}$/.test(code)) {
-    return Response.json({ error: "Enter a valid room number and cancellation code." }, { status: 400 });
+  if (typeof room !== "string" || !/^\d{1,12}$/.test(room) || typeof code !== "string" || !/^(?:\d{4}|[a-f0-9]{64})$/.test(code)) {
+    return Response.json({ error: "Enter a valid room number and four-digit cancellation code." }, { status: 400 });
   }
   try {
+    const reservation = await env.DB.prepare("SELECT cancellation_token_hash FROM reservations WHERE room = ?").bind(room).first();
+    if (!reservation?.cancellation_token_hash) return Response.json({ error: "No matching booking was found. Check your room number and cancellation code." }, { status: 404 });
+    const attempt = await env.DB.prepare(`
+      INSERT INTO cancellation_attempts (room, window_started_at, attempts)
+      VALUES (?, unixepoch(), 1)
+      ON CONFLICT(room) DO UPDATE SET
+        attempts = CASE WHEN cancellation_attempts.window_started_at <= unixepoch() - 86400 THEN 1 ELSE cancellation_attempts.attempts + 1 END,
+        window_started_at = CASE WHEN cancellation_attempts.window_started_at <= unixepoch() - 86400 THEN unixepoch() ELSE cancellation_attempts.window_started_at END
+      RETURNING attempts
+    `).bind(room).first();
+    if (attempt.attempts > 10) return Response.json({ error: "Too many cancellation attempts. Please try again after 24 hours." }, { status: 429 });
     const cancellationHash = await hashCancellationCode(code);
+    if (cancellationHash !== reservation.cancellation_token_hash) return Response.json({ error: "No matching booking was found. Check your room number and cancellation code." }, { status: 404 });
     const result = await env.DB.prepare("DELETE FROM reservations WHERE room = ? AND cancellation_token_hash = ?").bind(room, cancellationHash).run();
     if (!result.meta.changes) return Response.json({ error: "No matching booking was found. Check your room number and cancellation code." }, { status: 404 });
+    await env.DB.prepare("DELETE FROM cancellation_attempts WHERE room = ?").bind(room).run();
     return Response.json({ ok: true }, { headers: { "Cache-Control": "no-store" } });
   } catch (_) {
     return Response.json({ error: "Unable to cancel the booking. Please try again." }, { status: 500 });

@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   $("#cancel-form").addEventListener("submit", async (event) => {
     event.preventDefault(); setCancelMessage("");
     const room = $("#cancel-room").value.trim(); const cancellationCode = $("#cancel-code").value.trim();
-    if (!/^\d{1,12}$/.test(room) || !/^[a-f0-9]{64}$/.test(cancellationCode)) { setCancelMessage("Enter the room number and the full cancellation code.", "error"); return; }
+    if (!/^\d{1,12}$/.test(room) || !/^(?:\d{4}|[a-f0-9]{64})$/.test(cancellationCode)) { setCancelMessage("Enter the room number and the four-digit cancellation code.", "error"); return; }
     if (!window.confirm("Cancel this cleaning shift booking?")) return;
     try {
       await api("/reservations", { method: "DELETE", body: JSON.stringify({ room, cancellationCode }) });
