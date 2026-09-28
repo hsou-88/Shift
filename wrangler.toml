@@ -4,6 +4,6 @@ compatibility_date = "2026-09-28"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "cleaning-shift-booking"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_name = "shift"
+database_id = "0c5566fe-fda0-4726-901b-0f5b727eb943"
 migrations_dir = "migrations"
