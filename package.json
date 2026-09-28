@@ -1,5 +1,5 @@
 {
-  "name": "cleaning-shift-booking",
+  "name": "Shift",
   "version": "2.0.0",
   "private": true,
   "description": "Serverless cleaning shift booking on Cloudflare Pages and D1",
