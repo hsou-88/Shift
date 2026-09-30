@@ -128,3 +128,17 @@ body { margin: 0; background: #f3f4ef; color: var(--ink); font-family: 'DM Sans'
 .user-guide-links a:hover { border-color: var(--green); background: #edf3ed; }
 .user-guide-links a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 @media (max-width: 380px) { .user-guide-links { grid-template-columns: 1fr; } }
+
+.admin-room-status { margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--line); }
+.admin-room-status h2 { margin: 0; font-size: 18px; }
+.admin-room-status > p { margin: 8px 0 12px; color: #818a82; font-size: 10px; }
+.admin-room-status-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.admin-room-status-card { min-width: 0; padding: 10px; border: 1px solid var(--line); background: #fafbf9; }
+.admin-room-status-card.is-booked { border-color: #cbdccf; background: #f1f7f1; }
+.admin-room-status-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 5px; }
+.admin-room-status-heading strong { color: var(--ink); font-size: 11px; }
+.admin-room-status-badge { display: inline-flex; padding: 2px 6px; border-radius: 20px; font-size: 8px; font-weight: 700; line-height: 1.5; white-space: nowrap; }
+.admin-room-status-badge.is-booked { background: #dcebdd; color: #315b3c; }
+.admin-room-status-badge.is-open { background: #ecefea; color: #737e75; }
+.admin-room-status-detail { overflow-wrap: anywhere; margin: 6px 0 0; color: #778078; font-size: 9px; line-height: 1.5; }
+@media (max-width: 520px) { .admin-room-status-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

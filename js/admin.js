@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const message = document.querySelector("#admin-message");
   const cleanupMessage = document.querySelector("#cleanup-message");
   const reservationList = document.querySelector("#admin-reservation-list");
+  const roomStatusGrid = document.querySelector("#admin-room-status-grid");
+  const roomStatusSummary = document.querySelector("#admin-room-status-summary");
   const showMessage = (text, type = "") => { message.textContent = text; message.className = `booking-message ${type}`; };
   async function api(url, options = {}) {
     const response = await fetch(url, { ...options, credentials: "same-origin", headers: { "Content-Type": "application/json", ...(options.headers || {}) } });
@@ -17,6 +19,38 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
   function getDays(group) {
     return Array.from(document.querySelectorAll(`.weekday-options[data-group="${group}"] input:checked`), (input) => Number(input.value));
+  }
+  function renderRoomStatus(bookings = []) {
+    const bookingByRoom = new Map(bookings.map((booking) => [String(booking.room), booking]));
+    let bookedCount = 0;
+    roomStatusGrid.replaceChildren();
+    for (let roomNumber = 301; roomNumber <= 332; roomNumber += 1) {
+      const booking = bookingByRoom.get(String(roomNumber));
+      const card = document.createElement("div");
+      card.className = "admin-room-status-card " + (booking ? "is-booked" : "is-open");
+      card.setAttribute("role", "listitem");
+      const heading = document.createElement("div");
+      heading.className = "admin-room-status-heading";
+      const room = document.createElement("strong");
+      room.textContent = "Room " + roomNumber;
+      const status = document.createElement("span");
+      status.className = "admin-room-status-badge " + (booking ? "is-booked" : "is-open");
+      status.textContent = booking ? "Booked" : "Not booked";
+      heading.append(room, status);
+      const detail = document.createElement("p");
+      detail.className = "admin-room-status-detail";
+      if (booking) {
+        bookedCount += 1;
+        const [year, month, day] = booking.date.split("-").map(Number);
+        const formattedDate = new Intl.DateTimeFormat("en", { dateStyle: "medium" }).format(new Date(year, month - 1, day));
+        detail.textContent = booking.name + " · " + formattedDate;
+      } else {
+        detail.textContent = "No booking yet";
+      }
+      card.append(heading, detail);
+      roomStatusGrid.append(card);
+    }
+    roomStatusSummary.textContent = bookedCount + " of 32 rooms have a booking.";
   }
   function renderReservations(bookings = []) {
     reservationList.replaceChildren();
@@ -38,7 +72,9 @@ document.addEventListener("DOMContentLoaded", async () => {
           const result = await api("/api/admin/reservations", { method: "DELETE", body: JSON.stringify({ room: booking.room }) });
           cleanupMessage.textContent = result.deleted ? "Reservation deleted." : "That reservation was already deleted.";
           cleanupMessage.className = `booking-message ${result.deleted ? "success" : "error"}`;
-          const data = await api("/api/state"); renderReservations(data.bookings || []);
+          const data = await api("/api/state");
+          renderReservations(data.bookings || []);
+          renderRoomStatus(data.bookings || []);
         } catch (error) {
           cleanupMessage.textContent = error.message; cleanupMessage.className = "booking-message error";
         }
@@ -55,6 +91,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.querySelector("#new-rooms").value = newRooms.join(", ");
     setDays("new", settings.groups.new.days); setDays("current", settings.groups.current.days);
     renderReservations(bookings || []);
+    renderRoomStatus(bookings || []);
   } catch (error) { showMessage(error.message, "error"); }
 
   document.querySelector("#settings-form").addEventListener("submit", async (event) => {
@@ -84,6 +121,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       cleanupMessage.textContent = `Deleted ${result.deleted} reservation(s).`;
       cleanupMessage.className = "booking-message success";
       renderReservations([]);
+      renderRoomStatus([]);
     } catch (error) {
       cleanupMessage.textContent = error.message;
       cleanupMessage.className = "booking-message error";
